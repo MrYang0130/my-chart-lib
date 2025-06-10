@@ -1,47 +1,29 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue'
+import Chart from './components/Chart.vue'
+import Interval from './components/Interval.vue'
+
+// 准备一份模拟数据
+const chartData = ref([
+  { category: 'A', value: 30 },
+  { category: 'B', value: 80 },
+  { category: 'C', value: 45 },
+  { category: 'D', value: 60 },
+])
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div>
+    <h1>SVG Renderer</h1>
+    <Chart :data="chartData" :width="500" :height="300" renderer="svg">
+      <Interval x="category" y="value" />
+    </Chart>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <h1 style="margin-top: 50px">Canvas Renderer</h1>
+    <Chart :data="chartData" :width="500" :height="300" renderer="canvas">
+      <Interval x="category" y="value" />
+    </Chart>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style scoped></style>
